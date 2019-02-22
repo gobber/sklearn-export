@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: sklearn-export
+Version: 0.0.1
+Summary: Export a sklearn model to a Json file.
+Home-page: UNKNOWN
+Author: Charles Gobber
+Author-email: charles26f@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: sklearn,scikit-learn
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Description-Content-Type: text/markdown

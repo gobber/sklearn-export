@@ -1,0 +1,12 @@
+{
+  "name": "sklearn-export",
+  "description": "Export a sklearn model to a Json file.",
+  "long_description": "file://../readme.md",
+  "author": "Charles Gobber",
+  "author_email": "charles26f@gmail.com",
+  "url": "",
+  "keywords": ["sklearn", "scikit-learn"],
+  "requirements": "file://../requirements.txt",
+  "version": "0.0.1",
+  "license": "MIT"
+}
