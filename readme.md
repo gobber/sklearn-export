@@ -85,7 +85,7 @@ The method `to_json()` also support some other parameters:
 
 |  Parameter | Details  | Default |
 | -------- | ------ | ------ |
-| `filename`{.python} | Name of the output Json file | `data.json` |
+| `filename` | Name of the output Json file | `data.json` |
 | `directory` | Path to save the file | `.` |
 | `with_md5_hash` | Name of the output Json file | `False` |
 
