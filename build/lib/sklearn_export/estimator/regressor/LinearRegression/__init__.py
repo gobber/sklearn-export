@@ -5,47 +5,37 @@ import os
 from json import encoder
 from json import dumps
 
-from sklearn_porter.estimator.classifier.Classifier import Classifier
+from sklearn_export.estimator.regressor.Regressor import Regressor
 
 
-class LinearSVC(Classifier):
+class LinearRegression(Regressor):
     """
     See also
     --------
-    sklearn.svm.LinearSVC
+    sklearn.linear_models.LinearRegression
 
-    http://scikit-learn.org/stable/modules/generated/
-    sklearn.svm.LinearSVC.html
+    https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
     """
 
     # @formatter:on
-
-    def __init__(self, estimator, target_language='java',
-                 target_method='predict', **kwargs):
+    def __init__(self, estimator, **kwargs):
         """
         Port a trained estimator to the syntax of a chosen programming
         language.
 
         Parameters
         ----------
-        :param estimator : LinearSVC
-            An instance of a trained LinearSVC estimator.
+        :param estimator : LinearRegression
+            An instance of a trained LinearRegression estimator.
         :param target_language : string
             The target programming language.
         :param target_method : string
             The target method of the estimator.
         """
-        super(LinearSVC, self).__init__(estimator,
-                                        target_language=target_language,
-                                        target_method=target_method, **kwargs)
+        super(LinearRegression, self).__init__(
+            estimator, **kwargs)
+
         self.estimator = estimator
-
-        est = self.estimator
-
-        self.n_features = len(est.coef_[0])
-        self.n_classes = len(est.classes_)
-        self.is_binary = self.n_classes == 2
-        self.prefix = 'binary' if self.is_binary else 'multi'
 
     def load_model_data(self, model_data=None):
 
@@ -55,15 +45,9 @@ class LinearSVC(Classifier):
         if 'type' not in model_data:
             model_data['type'] = ''
 
-        est = self.estimator
-        coeffs = est.coef_[0] if self.is_binary else est.coef_.flatten('F')
-        inters = est.intercept_
-
-        model_data['coefficients'] = coeffs.tolist()
-        model_data['intercepts'] = inters.tolist()
-        model_data['type'] += 'LinearSVCBinary' if self.is_binary else 'LinearSVCMulticlass'
-        model_data['numRowsC'] = est.coef_.shape[0]
-        model_data['numColumnsC'] = est.coef_.shape[1]
+        model_data['coefficients'] = self.estimator.coef_.tolist()
+        model_data['intercept'] = [self.estimator.intercept_.tolist()]
+        model_data['type'] += 'LinearRegression'
 
         return model_data
 
@@ -77,7 +61,7 @@ class LinearSVC(Classifier):
             The directory.
         :param filename : string
             The filename.
-        :param with_md5_hash : bool
+        :param with_md5_hash : bool, default: False
             Whether to append the checksum to the filename or not.
         """
 
@@ -92,4 +76,3 @@ class LinearSVC(Classifier):
         path = os.path.join(directory, filename)
         with open(path, 'w') as fp:
             fp.write(json_data)
-

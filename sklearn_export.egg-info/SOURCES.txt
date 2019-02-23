@@ -1,7 +1,12 @@
+MANIFEST.in
+license.txt
+readme.md
+requirements.txt
 setup.py
 sklearn_export/Export.py
 sklearn_export/Template.py
 sklearn_export/__init__.py
+sklearn_export/package.json
 sklearn_export.egg-info/PKG-INFO
 sklearn_export.egg-info/SOURCES.txt
 sklearn_export.egg-info/dependency_links.txt

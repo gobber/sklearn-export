@@ -1,0 +1,2 @@
+include readme.md requirements.txt changelog.md license.txt
+recursive-include sklearn_export *.py *.txt *.json
