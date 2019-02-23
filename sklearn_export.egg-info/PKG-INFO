@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: sklearn-export
-Version: 0.0.2
+Version: 0.0.3
 Summary: Export sklearn models to Json.
-Home-page: UNKNOWN
+Home-page: https://github.com/gobber/sklearn-export
 Author: Charles Gobber
 Author-email: charles26f@gmail.com
 License: MIT
@@ -30,8 +30,8 @@ Description: # sklearn-export
         ```bash
         $ python setup.py develop
         ```
-        This command will install this library in develop mode (you can also use install instead of develop). I will make a pip package. 
-        to remove the package you can make:
+        This command will install this library in develop mode (you can also use install instead of develop). In order to remove 
+        the package you can do:
         ```bash
         $ python setup.py develop --uninstall
         ```
@@ -45,7 +45,7 @@ Description: # sklearn-export
         ```python
         # Basic imports
         from sklearn.datasets import load_iris
-        from sklearn_export.Export import Export
+        from sklearn_export import Export
         from sklearn.neural_network import MLPRegressor
         
         # Load data and train model
@@ -65,7 +65,7 @@ Description: # sklearn-export
         ```python
         # Basic imports
         from sklearn.datasets import load_iris
-        from sklearn_export.Export import Export
+        from sklearn_export import Export
         from sklearn.preprocessing import StandardScaler
         from sklearn.neural_network import MLPRegressor
         

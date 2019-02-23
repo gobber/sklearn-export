@@ -22,8 +22,8 @@ We recommend to make a instalation using your terminal. First, you have to downl
 ```bash
 $ python setup.py develop
 ```
-This command will install this library in develop mode (you can also use install instead of develop). I will make a pip package. 
-to remove the package you can make:
+This command will install this library in develop mode (you can also use install instead of develop). In order to remove 
+the package you can do:
 ```bash
 $ python setup.py develop --uninstall
 ```
@@ -37,7 +37,7 @@ Actually sklearn-export can save Classifiers, Regressions and some Scalers (see 
 ```python
 # Basic imports
 from sklearn.datasets import load_iris
-from sklearn_export.Export import Export
+from sklearn_export import Export
 from sklearn.neural_network import MLPRegressor
 
 # Load data and train model
@@ -57,7 +57,7 @@ The sklearn-export can also save more then one class in the same Json. This is u
 ```python
 # Basic imports
 from sklearn.datasets import load_iris
-from sklearn_export.Export import Export
+from sklearn_export import Export
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPRegressor
 
