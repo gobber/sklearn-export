@@ -18,14 +18,14 @@ This package is based on sklearn port from [https://github.com/nok/sklearn-porte
 
 **Observation**: details where extracted from sklearn documentation.
 ## Installation
-We recommend to make a instalation using your terminal. First, you have to download this repository, then you extract and navigate to the root folder and type in your terminal:
+We recommend to make a instalation using pip:
 ```bash
-$ python setup.py develop
+$ pip install sklearn_export
 ```
-This command will install this library in develop mode (you can also use install instead of develop). In order to remove 
-the package you can do:
-```bash
-$ python setup.py develop --uninstall
+If you are using jupyter notebooks consider to install sklearn_export through a notebook cell. Then, you can type and execute the following:
+```python
+import sys
+!{sys.executable} -m pip install sklearn_export
 ```
 ## Usage
 
@@ -78,6 +78,16 @@ export = Export([scaler, clf])
 export.to_json()
 ```
  The result is a Json file that contains information about a Model and a Scaler. The file can be load in any language.
+
+### Extra options
+
+The method `to_json()` also support some other parameters:
+
+|  Parameter | Details  | Default |
+| -------- | ------ | ------ |
+| `filename`{.python} | Name of the output Json file | `data.json` |
+| `directory` | Path to save the file | `.` |
+| `with_md5_hash` | Name of the output Json file | `False` |
 
 ## Questions
 If you have any question please send me a mail <charles26f@gmail.com>.

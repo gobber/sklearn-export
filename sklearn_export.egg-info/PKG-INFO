@@ -26,14 +26,14 @@ Description: # sklearn-export
         
         **Observation**: details where extracted from sklearn documentation.
         ## Installation
-        We recommend to make a instalation using your terminal. First, you have to download this repository, then you extract and navigate to the root folder and type in your terminal:
+        We recommend to make a instalation using pip:
         ```bash
-        $ python setup.py develop
+        $ pip install sklearn_export
         ```
-        This command will install this library in develop mode (you can also use install instead of develop). In order to remove 
-        the package you can do:
-        ```bash
-        $ python setup.py develop --uninstall
+        If you are using jupyter notebooks consider to install sklearn_export through a notebook cell. Then, you can type and execute the following:
+        ```python
+        import sys
+        !{sys.executable} -m pip install sklearn_export
         ```
         ## Usage
         

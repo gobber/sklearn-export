@@ -102,9 +102,9 @@ class SVC(Classifier):
         :param with_md5_hash : bool
             Whether to append the checksum to the filename or not.
         """
-        
+
         model_data = self.load_model_data(model_data=model_data)
-        
+
         encoder.FLOAT_REPR = lambda o: self.repr(o)
         json_data = dumps(model_data, sort_keys=True)
         if with_md5_hash:

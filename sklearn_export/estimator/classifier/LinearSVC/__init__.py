@@ -87,7 +87,7 @@ class LinearSVC(Classifier):
         json_data = dumps(model_data, sort_keys=True)
         if with_md5_hash:
             import hashlib
-            json_hash = hashlib.md5(json_data).hexdigest()
+            json_hash = hashlib.md5(str(json_data).encode('utf-8')).hexdigest()
             filename = filename.split('.json')[0] + '_' + json_hash + '.json'
         path = os.path.join(directory, filename)
         with open(path, 'w') as fp:
