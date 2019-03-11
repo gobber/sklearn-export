@@ -20,8 +20,7 @@ class LinearSVC(Classifier):
 
     # @formatter:on
 
-    def __init__(self, estimator, target_language='java',
-                 target_method='predict', **kwargs):
+    def __init__(self, estimator, **kwargs):
         """
         Port a trained estimator to the syntax of a chosen programming
         language.
@@ -35,16 +34,14 @@ class LinearSVC(Classifier):
         :param target_method : string
             The target method of the estimator.
         """
-        super(LinearSVC, self).__init__(estimator,
-                                        target_language=target_language,
-                                        target_method=target_method, **kwargs)
+        super(LinearSVC, self).__init__(estimator, **kwargs)
         self.estimator = estimator
 
         est = self.estimator
 
         self.n_features = len(est.coef_[0])
         self.n_classes = len(est.classes_)
-        self.is_binary = self.n_classes == 2
+        self.is_binary = est.n_classes == 2
         self.prefix = 'binary' if self.is_binary else 'multi'
 
     def load_model_data(self, model_data=None):
@@ -62,8 +59,13 @@ class LinearSVC(Classifier):
         model_data['coefficients'] = coeffs.tolist()
         model_data['intercepts'] = inters.tolist()
         model_data['type'] += 'LinearSVCBinary' if self.is_binary else 'LinearSVCMulticlass'
-        model_data['numRowsC'] = est.coef_.shape[0]
-        model_data['numColumnsC'] = est.coef_.shape[1]
+
+        if self.is_binary:
+            model_data['numRowsC'] = 1
+            model_data['numColumnsC'] = est.coef_.shape[0]
+        else:
+            model_data['numRowsC'] = est.coef_.shape[0]
+            model_data['numColumnsC'] = est.coef_.shape[1]
 
         return model_data
 

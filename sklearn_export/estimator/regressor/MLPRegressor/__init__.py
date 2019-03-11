@@ -20,8 +20,7 @@ class MLPRegressor(Regressor):
 
     # @formatter:on
 
-    def __init__(self, estimator, target_language='java',
-                 target_method='predict', **kwargs):
+    def __init__(self, estimator, **kwargs):
         """
         Port a trained estimator to the syntax of a chosen programming
         language.
@@ -35,9 +34,7 @@ class MLPRegressor(Regressor):
         :param target_method : string
             The target method of the estimator.
         """
-        super(MLPRegressor, self).__init__(
-            estimator, target_language=target_language,
-            target_method=target_method, **kwargs)
+        super(MLPRegressor, self).__init__(estimator, **kwargs)
 
         # Activation function ('identity', 'logistic', 'tanh' or 'relu'):
         if estimator.activation not in self.hidden_activation_functions:

@@ -20,8 +20,7 @@ class MLPClassifier(Classifier):
 
     # @formatter:on
 
-    def __init__(self, estimator, target_language='java',
-                 target_method='predict', **kwargs):
+    def __init__(self, estimator, **kwargs):
         """
         Port a trained estimator to the syntax of a chosen programming
         language.
@@ -36,9 +35,7 @@ class MLPClassifier(Classifier):
             The target method of the estimator.
         """
 
-        super(MLPClassifier, self).__init__(
-            estimator, target_language=target_language,
-            target_method=target_method, **kwargs)
+        super(MLPClassifier, self).__init__(estimator,  **kwargs)
 
         # Activation function ('identity', 'logistic', 'tanh' or 'relu'):
         hidden_activation = estimator.activation

@@ -7,7 +7,7 @@ from sklearn.ensemble.weight_boosting import AdaBoostClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.ensemble.forest import ExtraTreesClassifier
 from sklearn.svm.classes import LinearSVC
-from sklearn.svm.classes import SVC
+from sklearn.svm.classes import SVC, SVR, LinearSVR
 from sklearn.svm.classes import NuSVC
 from sklearn.neighbors.classification import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
@@ -194,6 +194,9 @@ class Export(object):
         # sklearn version < 0.18.0
         regressors = (
             LinearRegression,
+            SVR,
+            LinearSVR,
+
         )
 
         # sklearn version >= 0.18.0

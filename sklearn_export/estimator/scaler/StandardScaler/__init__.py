@@ -10,7 +10,7 @@ from sklearn_export.estimator.scaler.Scaler import Scaler
 
 class StandardScaler(Scaler):
 
-    def __init__(self, estimator, target_language='java', target_method='predict', **kwargs):
+    def __init__(self, estimator, **kwargs):
         """
         Port a trained estimator to the syntax of a chosen programming
         language.
@@ -24,9 +24,7 @@ class StandardScaler(Scaler):
         :param target_method : string
             The target method of the estimator.
         """
-        super(StandardScaler, self).__init__(
-            estimator, target_language=target_language,
-            target_method=target_method, **kwargs)
+        super(StandardScaler, self).__init__(estimator,  **kwargs)
 
         self.estimator = estimator
         self.params = estimator.get_params()

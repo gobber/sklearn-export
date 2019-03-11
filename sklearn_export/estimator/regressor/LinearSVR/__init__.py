@@ -5,18 +5,24 @@ import os
 from json import encoder
 from json import dumps
 
-from sklearn_export.estimator.classifier.Classifier import Classifier
+from sklearn_export.estimator.regressor.Regressor import Regressor
 
 
-class LogisticRegression(Classifier):
+class LinearSVR(Regressor):
+    """
+        See also
+        --------
+        sklearn.svm.LinearSVR
+
+        """
 
     # @formatter:on
+
     def __init__(self, estimator, **kwargs):
 
-        super(LogisticRegression, self).__init__(
-            estimator, **kwargs)
-
+        super(LinearSVR, self).__init__(estimator, **kwargs)
         self.estimator = estimator
+        #self.is_binary = True if len(estimator.coef_.shape) == 1 else False
 
     def load_model_data(self, model_data=None):
 
@@ -26,20 +32,20 @@ class LogisticRegression(Classifier):
         if 'type' not in model_data:
             model_data['type'] = ''
 
-        model_data['coefficients'] = self.estimator.coef_.flatten('F').tolist()
-        model_data['numRows'] = self.estimator.coef_.shape[0]
-        model_data['numColumns'] = self.estimator.coef_.shape[1]
-        model_data['intercept'] = self.estimator.intercept_.tolist()
+        est = self.estimator
+        coeffs = est.coef_
+        inters = est.intercept_
 
-        if self.estimator.multi_class is 'multinomial':
-            if len(self.estimator.classes_) > 2:
-                model_data['type'] += 'MultinomialLogisticRegression'
-            else:
-                model_data['type'] += 'BinaryLogisticRegression'
-        elif len(self.estimator.classes_) > 2:
-            model_data['type'] += 'MulticlassLogisticRegression'
-        else:
-            model_data['type'] += 'BinaryLogisticRegression'
+        model_data['coefficients'] = coeffs.tolist()
+        model_data['intercepts'] = inters.tolist()
+        model_data['type'] += 'LinearSVR'
+
+        #if self.is_binary:
+        #    model_data['numRowsC'] = 1
+        #    model_data['numColumnsC'] = est.coef_.shape[0]
+        #else:
+        #    model_data['numRowsC'] = est.coef_.shape[0]
+        #    model_data['numColumnsC'] = est.coef_.shape[1]
 
         return model_data
 
@@ -53,7 +59,7 @@ class LogisticRegression(Classifier):
             The directory.
         :param filename : string
             The filename.
-        :param with_md5_hash : bool, default: False
+        :param with_md5_hash : bool
             Whether to append the checksum to the filename or not.
         """
 
@@ -63,7 +69,7 @@ class LogisticRegression(Classifier):
         json_data = dumps(model_data, sort_keys=True)
         if with_md5_hash:
             import hashlib
-            json_hash = hashlib.md5(json_data).hexdigest()
+            json_hash = hashlib.md5(str(json_data).encode('utf-8')).hexdigest()
             filename = filename.split('.json')[0] + '_' + json_hash + '.json'
         path = os.path.join(directory, filename)
         with open(path, 'w') as fp:

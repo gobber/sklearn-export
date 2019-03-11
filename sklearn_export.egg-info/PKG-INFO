@@ -87,6 +87,16 @@ Description: # sklearn-export
         ```
          The result is a Json file that contains information about a Model and a Scaler. The file can be load in any language.
         
+        ### Extra options
+        
+        The method `to_json()` also support some other parameters:
+        
+        |  Parameter | Details  | Default |
+        | -------- | ------ | ------ |
+        | `filename` | Name of the output Json file | `data.json` |
+        | `directory` | Path to save the file | `.` |
+        | `with_md5_hash` | Name of the output Json file | `False` |
+        
         ## Questions
         If you have any question please send me a mail <charles26f@gmail.com>.
 Keywords: sklearn,scikit-learn

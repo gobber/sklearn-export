@@ -5,38 +5,35 @@ import os
 from json import encoder
 from json import dumps
 
-from sklearn_export.estimator.classifier.Classifier import Classifier
+from sklearn_export.estimator.regressor.Regressor import Regressor
 
 
-class SVC(Classifier):
+class SVR(Regressor):
     """
     See also
     --------
-    sklearn.svm.SVC
+    sklearn.svm.SVR
 
-    http://scikit-learn.org/stable/modules/generated/
-    sklearn.svm.SVC.html
     """
 
     # @formatter:on
 
-    def __init__(self, estimator, target_language='java',
-                 target_method='predict', **kwargs):
+    def __init__(self, estimator, **kwargs):
         """
         Port a trained estimator to the syntax of a chosen programming
         language.
 
         Parameters
         ----------
-        :param estimator : SVC
+        :param estimator : SVR
             An instance of a trained SVC estimator.
         :param target_language : string, default: 'java'
             The target programming language.
         :param target_method : string, default: 'predict'
             The target method of the estimator.
         """
-        super(SVC, self).__init__(estimator, target_language=target_language,
-                                  target_method=target_method, **kwargs)
+        super(SVR, self).__init__(estimator, **kwargs)
+
         self.estimator = estimator
 
         est = self.estimator
@@ -44,7 +41,6 @@ class SVC(Classifier):
         self.n_features = len(est.support_vectors_[0])
         self.svs_rows = est.n_support_
         self.n_svs_rows = len(est.n_support_)
-        self.n_classes = len(est.classes_)
         self.params = est.get_params()
 
         # Kernel:
@@ -74,14 +70,11 @@ class SVC(Classifier):
         model_data['vectors'] = vectors.tolist()
         model_data['coefficients'] = coefficients.tolist()
         model_data['intercepts'] = self.estimator.intercept_.tolist()
-        model_data['weights'] = self.estimator.n_support_.tolist()
+        model_data['type'] += 'SVR'
         model_data['kernel'] = self.kernel
         model_data['gamma'] = float(self.gamma)
         model_data['coef0'] = float(self.coef0)
         model_data['degree'] = float(self.degree)
-        model_data['nClasses'] = int(self.n_classes)
-        model_data['nRows'] = int(self.n_svs_rows)
-        model_data['type'] += 'SVCBinary' if int(self.n_classes) == 2 else 'SVCMulticlass'
         model_data['numRowsV'] = self.estimator.support_vectors_.shape[0]
         model_data['numColumnsV'] = self.estimator.support_vectors_.shape[1]
         model_data['numRowsC'] = self.estimator.dual_coef_.shape[0]
@@ -109,9 +102,8 @@ class SVC(Classifier):
         json_data = dumps(model_data, sort_keys=True)
         if with_md5_hash:
             import hashlib
-            json_hash = hashlib.md5(json_data).hexdigest()
+            json_hash = hashlib.md5(str(json_data).encode('utf-8')).hexdigest()
             filename = filename.split('.json')[0] + '_' + json_hash + '.json'
         path = os.path.join(directory, filename)
         with open(path, 'w') as fp:
             fp.write(json_data)
-

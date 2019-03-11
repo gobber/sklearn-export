@@ -32,8 +32,7 @@ class LinearRegression(Regressor):
         :param target_method : string
             The target method of the estimator.
         """
-        super(LinearRegression, self).__init__(
-            estimator, **kwargs)
+        super(LinearRegression, self).__init__(estimator, **kwargs)
 
         self.estimator = estimator
 

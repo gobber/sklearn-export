@@ -2,6 +2,10 @@
 
 This package is based on sklearn port from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter).  I chose to build it because sklearn port saves data in matrix format. However, most popular algebra libraries are used to working with vectors. Then, sklearn-export saves the sklearn model data in Json format (as column vectors).  Note that this is a beta version yet, then only some models and functionalities are supported.
 
+## New features (0.0.4)
+
+Bug corrections and add support to SVR and LinearSVR.
+
 ## Support
 
 |  Class | Details  |
@@ -15,6 +19,8 @@ This package is based on sklearn port from [https://github.com/nok/sklearn-porte
 |[sklearn.linear_model.LinearRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)|Ordinary least squares Linear Regression.|
 |[sklearn.preprocessing.MinMaxScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html)|Transforms features by scaling each feature to a given range.|
 |[sklearn.preprocessing.StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)|Standardize features by removing the mean and scaling to unit variance|
+|[sklearn.svm.SVR](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)|Epsilon-Support Vector Regression.|
+|[sklearn.svm.LinearSVR](https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVR.html)|Linear Support Vector Regression.|
 
 **Observation**: details where extracted from sklearn documentation.
 ## Installation
