@@ -34,14 +34,11 @@ class MinMaxScaler(Scaler):
         if model_data is None:
             model_data = {}
 
-        if 'type' not in model_data:
-            model_data['type'] = ''
-
         model_data['lower'] = self.params['feature_range'][0]
         model_data['upper'] = self.params['feature_range'][1]
         model_data['min'] = self.estimator.data_min_.tolist()
         model_data['max'] = self.estimator.data_max_.tolist()
-        model_data['type'] = 'MinMaxScaler'
+        model_data['scaler'] = 'MinMaxScaler'
 
         return model_data
 
