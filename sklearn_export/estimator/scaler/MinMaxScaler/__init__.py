@@ -32,7 +32,7 @@ class MinMaxScaler(Scaler):
     def load_model_data(self, model_data=None):
 
         if model_data is None:
-            model_data = {}
+            model_data = {}                    
 
         model_data['lower'] = self.params['feature_range'][0]
         model_data['upper'] = self.params['feature_range'][1]
