@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-
-from json import encoder
-from json import dumps
-
 from sklearn_export.estimator.regressor.Regressor import Regressor
 
 
@@ -20,17 +15,12 @@ class SVR(Regressor):
 
     def __init__(self, estimator, **kwargs):
         """
-        Port a trained estimator to the syntax of a chosen programming
-        language.
+        Port a trained estimator to a dict.
 
         Parameters
         ----------
         :param estimator : SVR
             An instance of a trained SVC estimator.
-        :param target_language : string, default: 'java'
-            The target programming language.
-        :param target_method : string, default: 'predict'
-            The target method of the estimator.
         """
         super(SVR, self).__init__(estimator, **kwargs)
 
@@ -81,29 +71,3 @@ class SVR(Regressor):
         model_data['numColumnsC'] = self.estimator.dual_coef_.shape[1]
 
         return model_data
-
-    def to_json(self, directory, filename, model_data=None, with_md5_hash=False):
-        """
-        Save model data in a JSON file.
-
-        Parameters
-        ----------
-        :param directory : string
-            The directory.
-        :param filename : string
-            The filename.
-        :param with_md5_hash : bool
-            Whether to append the checksum to the filename or not.
-        """
-
-        model_data = self.load_model_data(model_data=model_data)
-
-        encoder.FLOAT_REPR = lambda o: self.repr(o)
-        json_data = dumps(model_data, sort_keys=True)
-        if with_md5_hash:
-            import hashlib
-            json_hash = hashlib.md5(str(json_data).encode('utf-8')).hexdigest()
-            filename = filename.split('.json')[0] + '_' + json_hash + '.json'
-        path = os.path.join(directory, filename)
-        with open(path, 'w') as fp:
-            fp.write(json_data)

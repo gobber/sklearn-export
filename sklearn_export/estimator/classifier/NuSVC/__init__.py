@@ -14,16 +14,11 @@ class NuSVC(SVC):
     """
     def __init__(self, estimator, **kwargs):
         """
-        Port a trained estimator to the syntax of a chosen programming
-        language.
+        Port a trained estimator to a dict.
 
         Parameters
         ----------
         :param estimator : NuSVC
             An instance of a trained NuSVC estimator.
-        :param target_language : string, default: 'java'
-            The target programming language.
-        :param target_method : string, default: 'predict'
-            The target method of the estimator.
         """
         super(NuSVC, self).__init__(estimator, **kwargs)

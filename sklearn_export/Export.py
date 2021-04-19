@@ -2,16 +2,13 @@
 import sys
 import types
 
-from sklearn.tree.tree import DecisionTreeClassifier
-from sklearn.ensemble.weight_boosting import AdaBoostClassifier
-from sklearn.ensemble.forest import RandomForestClassifier
-from sklearn.ensemble.forest import ExtraTreesClassifier
-from sklearn.svm.classes import LinearSVC
-from sklearn.svm.classes import SVC, SVR, LinearSVR
-from sklearn.svm.classes import NuSVC
-from sklearn.neighbors.classification import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.naive_bayes import BernoulliNB
+#from sklearn.tree.tree import DecisionTreeClassifier
+#from sklearn.ensemble.weight_boosting import AdaBoostClassifier
+#from sklearn.ensemble.forest import RandomForestClassifier
+#from sklearn.ensemble.forest import ExtraTreesClassifier
+#from sklearn.neighbors.classification import KNeighborsClassifier
+#from sklearn.naive_bayes import GaussianNB
+#from sklearn.naive_bayes import BernoulliNB
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
@@ -69,23 +66,23 @@ class Export(object):
 
         # Extract estimator from 'Pipeline':
         # sklearn version >= 0.15.0
-        if not hasattr(self, 'estimator') and self.sklearn_ver[:2] >= (0, 15):
-            from sklearn.pipeline import Pipeline
-            if isinstance(estimator, Pipeline):
-                if hasattr(estimator, '_final_estimator') and \
-                        estimator._final_estimator is not None:
-                    self.estimator = estimator._final_estimator
+        #if not hasattr(self, 'estimator') and self.sklearn_ver[:2] >= (0, 15):
+            #from sklearn.pipeline import Pipeline
+            #if isinstance(estimator, Pipeline):
+                #if hasattr(estimator, '_final_estimator') and \
+                        #estimator._final_estimator is not None:
+                    #self.estimator = estimator._final_estimator
 
         # Extract estimator from optimizer (GridSearchCV, RandomizedSearchCV):
         # sklearn version >= 0.19.0
-        if not hasattr(self, 'estimator') and self.sklearn_ver[:2] >= (0, 19):
-            from sklearn.model_selection._search import GridSearchCV
-            from sklearn.model_selection._search import RandomizedSearchCV
-            optimizers = (GridSearchCV, RandomizedSearchCV)
-            if isinstance(estimator, optimizers):
-                if hasattr(estimator, 'best_estimator_') and \
-                        hasattr(estimator.best_estimator_, '_final_estimator'):
-                    self.estimator = estimator.best_estimator_._final_estimator
+        #if not hasattr(self, 'estimator') and self.sklearn_ver[:2] >= (0, 19):
+            #from sklearn.model_selection._search import GridSearchCV
+            #from sklearn.model_selection._search import RandomizedSearchCV
+            #optimizers = (GridSearchCV, RandomizedSearchCV)
+            #if isinstance(estimator, optimizers):
+                #if hasattr(estimator, 'best_estimator_') and \
+                        #hasattr(estimator.best_estimator_, '_final_estimator'):
+                    #self.estimator = estimator.best_estimator_._final_estimator
 
         if not hasattr(self, 'estimator'):
             self.estimator = estimator
@@ -134,14 +131,14 @@ class Export(object):
             if isinstance(self.template, list):
                 self.template[0].num_format = num_format
                 self.template[1].num_format = num_format
-                self.template[1].to_json(directory=directory,
+                return self.template[1].to_json(directory=directory,
                                          filename=filename,
                                          with_md5_hash=with_md5_hash,
                                          model_data=self.template[0].load_model_data(),
                                          **kwargs)
             else:
-                self.template._num_format = num_format
-                self.template.to_json(directory=directory,
+                self.template.num_format = num_format
+                return self.template.to_json(directory=directory,
                                       filename=filename,
                                       with_md5_hash=with_md5_hash,
                                       **kwargs)
@@ -165,17 +162,27 @@ class Export(object):
             #ExtraTreesClassifier,
             #GaussianNB,
             #KNeighborsClassifier,
-            LinearSVC,
-            NuSVC,
             LogisticRegression,
             #RandomForestClassifier,
-            SVC,
         )
+
+        if self.sklearn_ver[:2] < (0, 24):
+            from sklearn.svm.classes import LinearSVC
+            from sklearn.svm.classes import SVC
+            from sklearn.svm.classes import NuSVC
+        else:
+            from sklearn.svm import LinearSVC
+            from sklearn.svm import SVC
+            from sklearn.svm import NuSVC
+
+        classifiers += (LinearSVC, SVC, NuSVC)
 
         # sklearn version >= 0.18.0
         if self.sklearn_ver[:2] >= (0, 18):
-            from sklearn.neural_network.multilayer_perceptron \
-                import MLPClassifier
+            if self.sklearn_ver[:2] < (0, 24):
+                from sklearn.neural_network.multilayer_perceptron import MLPClassifier
+            else:
+                from sklearn.neural_network import MLPClassifier
             classifiers += (MLPClassifier, )
 
         return classifiers
@@ -194,15 +201,20 @@ class Export(object):
         # sklearn version < 0.18.0
         regressors = (
             LinearRegression,
-            SVR,
-            LinearSVR,
-
         )
+
+        if self.sklearn_ver[:2] < (0, 24):
+            from sklearn.svm.classes import SVR, LinearSVR
+        else:
+            from sklearn.svm import SVR, LinearSVR
+        regressors += (SVR, LinearSVR)
 
         # sklearn version >= 0.18.0
         if self.sklearn_ver[:2] >= (0, 18):
-            from sklearn.neural_network.multilayer_perceptron \
-                import MLPRegressor
+            if self.sklearn_ver[:2] < (0, 24):
+                from sklearn.neural_network.multilayer_perceptron import MLPRegressor
+            else:
+                from sklearn.neural_network import MLPRegressor
             regressors += (MLPRegressor, )
 
         return regressors

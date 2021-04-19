@@ -2,9 +2,9 @@
 
 This package is based on sklearn port from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter).  I chose to build it because sklearn port saves data in matrix format. However, most popular algebra libraries are used to working with vectors. Then, sklearn-export saves the sklearn model data in Json format (as column vectors).  Note that this is a beta version yet, then only some models and functionalities are supported.
 
-## New features (0.0.4)
+## New features (0.0.5)
 
-Bug corrections and add support to SVR and LinearSVR.
+The code was optimized and now it works with sklearn >= 0.24.
 
 ## Support
 
@@ -93,7 +93,7 @@ The method `to_json()` also support some other parameters:
 | -------- | ------ | ------ |
 | `filename` | Name of the output Json file | `data.json` |
 | `directory` | Path to save the file | `.` |
-| `with_md5_hash` | Name of the output Json file | `False` |
+| `with_md5_hash` | Include md5 hash in file name | `False` |
 
 ## Questions
 If you have any question please send me a mail <charles26f@gmail.com>.

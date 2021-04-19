@@ -7,6 +7,6 @@
   "url": "https://github.com/gobber/sklearn-export",
   "keywords": ["sklearn", "scikit-learn"],
   "requirements": "file://../requirements.txt",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT"
 }
