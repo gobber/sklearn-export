@@ -2,7 +2,7 @@
 
 This package is based on sklearn port from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter).  I chose to build it because sklearn port saves data in matrix format. However, most popular algebra libraries are used to working with vectors. Then, sklearn-export saves the sklearn model data in Json format (as column vectors).  Note that this is a beta version yet, then only some models and functionalities are supported.
 
-## New features (0.0.5)
+## New features (0.0.6)
 
 The code was optimized and now it works with sklearn >= 0.24.
 
