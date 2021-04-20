@@ -86,26 +86,22 @@ class MLPClassifier(Classifier):
         if model_data is None:
             model_data = {}
 
-        if 'type' not in model_data:
-            model_data['type'] = ''
-
-        model_data['layers'] = [int(l) for l in list(self._get_activations())]
         model_data['bias'] = self._get_intercepts()
         model_data['hidden_activation'] = self.hidden_activation
         model_data['output_activation'] = self.output_activation
-        model_data['type'] += 'MLPBinaryClassifier' if self.is_binary else 'MLPMultiClassifier'
+        model_data['type'] = 'MLPBinaryClassifier' if self.is_binary else 'MLPMultiClassifier'
 
         weights = []
         numrows = []
         numcolumns = []
         for c in self.coefficients:
-            w = []
-            for j in range(0, len(c[0])):
-                for i in range(0, len(c)):
-                    w.append(c[i][j])
+            #w = []
+            #for j in range(0, len(c[0])):
+                #for i in range(0, len(c)):
+                    #w.append(c[i][j])
             numrows.append(len(c))
             numcolumns.append(len(c[0]))
-            weights.append(w)
+            weights.append(c.flatten('F').tolist())
         model_data['weights'] = weights
         model_data['numRows'] = numrows
         model_data['numColumns'] = numcolumns
@@ -117,9 +113,3 @@ class MLPClassifier(Classifier):
         Create a list of interceptors.
         """
         return [i.tolist() for i in self.intercepts]
-
-    def _get_activations(self):
-        """
-        Concatenate the layers sizes of the classifier except the input layer.
-        """
-        return [str(x) for x in self.layer_units[1:]]

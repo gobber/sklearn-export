@@ -31,16 +31,13 @@ class LinearSVR(Regressor):
         if model_data is None:
             model_data = {}
 
-        if 'type' not in model_data:
-            model_data['type'] = ''
-
         est = self.estimator
         coeffs = est.coef_
         inters = est.intercept_
 
         model_data['coefficients'] = coeffs.tolist()
         model_data['intercepts'] = inters.tolist()
-        model_data['type'] += 'LinearSVR'
+        model_data['type'] = 'LinearSVR'
 
         #if self.is_binary:
         #    model_data['numRowsC'] = 1

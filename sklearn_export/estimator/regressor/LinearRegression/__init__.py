@@ -31,11 +31,8 @@ class LinearRegression(Regressor):
         if model_data is None:
             model_data = {}
 
-        if 'type' not in model_data:
-            model_data['type'] = ''
-
         model_data['coefficients'] = self.estimator.coef_.tolist()
         model_data['intercept'] = [self.estimator.intercept_.tolist()]
-        model_data['type'] += 'LinearRegression'
+        model_data['type'] = 'LinearRegression'
 
         return model_data

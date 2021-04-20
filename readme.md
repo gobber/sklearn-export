@@ -1,10 +1,10 @@
 # sklearn-export
 
-This package is based on sklearn port from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter).  I chose to build it because sklearn port saves data in matrix format. However, most popular algebra libraries are used to working with vectors. Then, sklearn-export saves the sklearn model data in Json format (as column vectors).  Note that this is a beta version yet, then only some models and functionalities are supported.
+This package is based on sklearn porter from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter).  I choose to build it because sklearn porter saves data in matrix format. However, most popular algebra libraries (e.g., [blas](http://www.netlib.org/blas/) and [lapack](http://www.netlib.org/lapack/)) are used to work with vectors. Then, sklearn-export saves the sklearn model data in Json format (matrices are stored in [column major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order)).  Note that, this is a beta version yet, then only some models and functionalities are supported.
 
-## New features (0.0.6)
+## New features (0.0.7)
 
-The code was optimized and now it works with sklearn >= 0.24.
+The code was optimized and now it works with sklearn >= 0.24. Some complete examples were added (see Complete Examples section).
 
 ## Support
 
@@ -18,11 +18,11 @@ The code was optimized and now it works with sklearn >= 0.24.
 |[sklearn.linear_model.LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)|Logistic Regression (aka logit, MaxEnt) classifier.|
 |[sklearn.linear_model.LinearRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)|Ordinary least squares Linear Regression.|
 |[sklearn.preprocessing.MinMaxScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html)|Transforms features by scaling each feature to a given range.|
-|[sklearn.preprocessing.StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)|Standardize features by removing the mean and scaling to unit variance|
+|[sklearn.preprocessing.StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)|Standardize features by removing the mean and scaling to unit variance.|
 |[sklearn.svm.SVR](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)|Epsilon-Support Vector Regression.|
 |[sklearn.svm.LinearSVR](https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVR.html)|Linear Support Vector Regression.|
 
-**Observation**: details where extracted from sklearn documentation.
+**Observation**: details were extracted from sklearn documentation.
 ## Installation
 We recommend to make a instalation using pip:
 ```bash
@@ -37,7 +37,7 @@ import sys
 
 Actually sklearn-export can save Classifiers, Regressions and some Scalers (see Support session).
 
- ### Saving a Model or Scaler
+### Saving a Model or Scaler
 
  The basic usage is to save a simple model.
 ```python
@@ -54,9 +54,13 @@ clf.fit(X, y)
 
 # Save using sklearn_export
 export = Export(clf)
-export.to_json()
+result = export.to_json()
 ```
-The result is a Json file that can be load in any language.
+The result is a Json file that can be loaded in any language.
+
+### Complete examples
+
+Some complete examples are provided [here](https://github.com/gobber/sklearn-export/examples/).
 
 ### Saving a Model and a Scaler
 The sklearn-export can also save more then one class in the same Json. This is usefull to store a Classifier and a Scaler (for example). To be honest, actually is only possible to store a pair Model and Scaler.
@@ -81,9 +85,9 @@ clf.fit(Xz, y)
 
 # Save model and scaler using sklearn_export
 export = Export([scaler, clf])
-export.to_json()
+result = export.to_json()
 ```
- The result is a Json file that contains information about a Model and a Scaler. The file can be load in any language.
+ The result is a Json file that contains information about a Model and a Scaler. The file can be loaded in any programing language.
 
 ### Extra options
 

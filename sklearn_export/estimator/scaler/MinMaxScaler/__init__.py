@@ -11,8 +11,8 @@ class MinMaxScaler(Scaler):
 
         Parameters
         ----------
-        :param estimator : LinearRegression
-            An instance of a trained LinearRegression estimator.
+        :param estimator : MinMaxScaler
+            An instance of a trained MinMaxScaler estimator.
         """
         super(MinMaxScaler, self).__init__(estimator,  **kwargs)
 

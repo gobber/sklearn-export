@@ -5,13 +5,13 @@ import os
 from json import encoder
 from json import dumps
 
+
 class Template(object):
 
     def __init__(self, estimator, **kwargs):
         # pylint: disable=unused-argument
         # Default settings:
         self.num_format = lambda x: str(x)
-        self.use_file = False
 
     def repr(self, value):
         return self.num_format(value)

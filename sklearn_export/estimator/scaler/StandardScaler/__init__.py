@@ -11,8 +11,8 @@ class StandardScaler(Scaler):
 
         Parameters
         ----------
-        :param estimator : LinearRegression
-            An instance of a trained LinearRegression estimator.
+        :param estimator : StandardScaler
+            An instance of a trained StandardScaler estimator.
         """
         super(StandardScaler, self).__init__(estimator,  **kwargs)
 

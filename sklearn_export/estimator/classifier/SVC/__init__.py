@@ -39,10 +39,12 @@ class SVC(Classifier):
         self.kernel = str(self.params['kernel'])
 
         # Gamma:
-        self.gamma = self.params['gamma']
-        if self.gamma == 'auto':
-            self.gamma = 1. / self.n_features
-        self.gamma = self.repr(self.gamma)
+        #self.gamma = self.params['gamma']
+        #if self.gamma == 'auto':
+            #self.gamma = 1. / self.n_features
+        #self.gamma = self.repr(self.gamma)
+        # It is not a good practice, but how can we access the input values when gamma='scale'?...
+        self.gamma = self.repr(est._gamma)
 
         # Coefficient and degree:
         self.coef0 = self.repr(self.params['coef0'])
@@ -52,9 +54,6 @@ class SVC(Classifier):
 
         if model_data is None:
             model_data = {}
-
-        if 'type' not in model_data:
-            model_data['type'] = ''
 
         vectors = self.estimator.support_vectors_.flatten('F')
         coefficients = self.estimator.dual_coef_.flatten('F')
@@ -69,7 +68,7 @@ class SVC(Classifier):
         model_data['degree'] = float(self.degree)
         model_data['nClasses'] = int(self.n_classes)
         model_data['nRows'] = int(self.n_svs_rows)
-        model_data['type'] += 'SVCBinary' if int(self.n_classes) == 2 else 'SVCMulticlass'
+        model_data['type'] = 'SVCBinary' if int(self.n_classes) == 2 else 'SVCMulticlass'
         model_data['numRowsV'] = self.estimator.support_vectors_.shape[0]
         model_data['numColumnsV'] = self.estimator.support_vectors_.shape[1]
         model_data['numRowsC'] = self.estimator.dual_coef_.shape[0]

@@ -37,10 +37,11 @@ class SVR(Regressor):
         self.kernel = str(self.params['kernel'])
 
         # Gamma:
-        self.gamma = self.params['gamma']
-        if self.gamma == 'auto':
-            self.gamma = 1. / self.n_features
-        self.gamma = self.repr(self.gamma)
+        #self.gamma = self.params['gamma']
+        #if self.gamma == 'auto':
+            #self.gamma = 1. / self.n_features
+        #self.gamma = self.repr(self.gamma)
+        self.gamma = self.repr(est._gamma)
 
         # Coefficient and degree:
         self.coef0 = self.repr(self.params['coef0'])
@@ -51,16 +52,13 @@ class SVR(Regressor):
         if model_data is None:
             model_data = {}
 
-        if 'type' not in model_data:
-            model_data['type'] = ''
-
         vectors = self.estimator.support_vectors_.flatten('F')
         coefficients = self.estimator.dual_coef_.flatten('F')
 
         model_data['vectors'] = vectors.tolist()
         model_data['coefficients'] = coefficients.tolist()
         model_data['intercepts'] = self.estimator.intercept_.tolist()
-        model_data['type'] += 'SVR'
+        model_data['type'] = 'SVR'
         model_data['kernel'] = self.kernel
         model_data['gamma'] = float(self.gamma)
         model_data['coef0'] = float(self.coef0)

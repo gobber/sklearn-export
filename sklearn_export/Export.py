@@ -18,8 +18,7 @@ class Export(object):
     def __init__(self, estimator, **kwargs):
         # pylint: disable=unused-argument
         """
-        Transpile a trained estimator to the
-        chosen target programming language.
+        Transpile a trained estimator to a JSON file.
 
         Parameters
         ----------
@@ -46,7 +45,6 @@ class Export(object):
                 estimator[1] = temp
             else:
                 raise AttributeError('One of the estimators must be a Scaler.')
-
             self.template.append(self.load(estimator[0], **kwargs))
             del self.estimator
             self.template.append(self.load(estimator[1], **kwargs))
@@ -154,7 +152,6 @@ class Export(object):
             The set of supported classifiers.
         """
 
-        # sklearn version < 0.18.0
         classifiers = (
             #AdaBoostClassifier,
             #BernoulliNB,
@@ -198,7 +195,6 @@ class Export(object):
             The set of supported regressors.
         """
 
-        # sklearn version < 0.18.0
         regressors = (
             LinearRegression,
         )
@@ -230,7 +226,6 @@ class Export(object):
             The set of supported regressors.
         """
 
-        # sklearn version < 0.18.0
         scalers = (
             StandardScaler,
             MinMaxScaler,

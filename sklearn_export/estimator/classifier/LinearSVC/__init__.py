@@ -39,16 +39,13 @@ class LinearSVC(Classifier):
         if model_data is None:
             model_data = {}
 
-        if 'type' not in model_data:
-            model_data['type'] = ''
-
         est = self.estimator
         coeffs = est.coef_[0] if self.is_binary else est.coef_.flatten('F')
         inters = est.intercept_
 
         model_data['coefficients'] = coeffs.tolist()
         model_data['intercepts'] = inters.tolist()
-        model_data['type'] += 'LinearSVCBinary' if self.is_binary else 'LinearSVCMulticlass'
+        model_data['type'] = 'LinearSVCBinary' if self.is_binary else 'LinearSVCMulticlass'
 
         if self.is_binary:
             model_data['numRowsC'] = 1

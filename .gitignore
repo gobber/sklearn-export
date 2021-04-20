@@ -2,3 +2,4 @@
 dist/
 build/
 sklearn_export.egg-info/
+examples/*.json
