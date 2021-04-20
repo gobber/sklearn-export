@@ -1,6 +1,6 @@
 # sklearn-export
 
-This package is based on sklearn porter from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter).  I choose to build it because sklearn porter saves data in matrix format. However, most popular algebra libraries (e.g., [blas](http://www.netlib.org/blas/) and [lapack](http://www.netlib.org/lapack/)) are used to work with vectors. Then, sklearn-export saves the sklearn model data in Json format (matrices are stored in [column major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order)).  Note that, this is a beta version yet, then only some models and functionalities are supported.
+This package is based on sklearn porter from [https://github.com/nok/sklearn-porter](https://github.com/nok/sklearn-porter). We choose to build it because sklearn porter saves data in matrix format. However, many popular algebra libraries (e.g., [blas](http://www.netlib.org/blas/) and [lapack](http://www.netlib.org/lapack/)) are used to work with vectors. Then, sklearn-export saves the sklearn model data in Json format (matrices are stored in [column major order](https://en.wikipedia.org/wiki/Row-_and_column-major_order)).  Note that, this is a beta version yet, then only some models and functionalities are supported.
 
 ## New features (0.0.7)
 
@@ -37,7 +37,7 @@ import sys
 
 Actually sklearn-export can save Classifiers, Regressions and some Scalers (see Support session).
 
-### Saving a Model or Scaler
+### Saving a model or scaler
 
  The basic usage is to save a simple model.
 ```python
@@ -56,14 +56,14 @@ clf.fit(X, y)
 export = Export(clf)
 result = export.to_json()
 ```
-The result is a Json file that can be loaded in any language.
+The result is a JSON file that can be loaded in any programing language that supports JSON.
 
 ### Complete examples
 
 Some complete examples are provided [here](https://github.com/gobber/sklearn-export/tree/master/examples).
 
-### Saving a Model and a Scaler
-The sklearn-export can also save more then one class in the same Json. This is usefull to store a Classifier and a Scaler (for example). To be honest, actually is only possible to store a pair Model and Scaler.
+### Saving multiple models
+The sklearn-export can also save more then one model in the same JSON file. This is usefull when you need to store a Classifier and a Scaler (for example). Currently, it is only possible to export a Model and a Scaler, but future upgrades will include multiple models.
 ```python
 # Basic imports
 from sklearn.datasets import load_iris
@@ -83,11 +83,11 @@ Xz = scaler.fit_transform(X)
 clf = MLPRegressor()
 clf.fit(Xz, y)
 
-# Save model and scaler using sklearn_export
+# Save a model and a scaler using sklearn_export
 export = Export([scaler, clf])
 result = export.to_json()
 ```
- The result is a Json file that contains information about a Model and a Scaler. The file can be loaded in any programing language.
+ The result is a Json file that contains information about a Model and a Scaler. The file can be loaded in any programing language that supports JSON files.
 
 ### Extra options
 
@@ -100,5 +100,5 @@ The method `to_json()` also support some other parameters:
 | `with_md5_hash` | Include md5 hash in file name | `False` |
 
 ## Questions
-If you have any question please send me a mail <charles26f@gmail.com>.
+If you have any question please send me an email <charles26f@gmail.com>.
 
