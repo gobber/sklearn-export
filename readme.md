@@ -60,7 +60,7 @@ The result is a Json file that can be loaded in any language.
 
 ### Complete examples
 
-Some complete examples are provided [here](https://github.com/gobber/sklearn-export/examples/).
+Some complete examples are provided [here](https://github.com/gobber/sklearn-export/tree/master/examples).
 
 ### Saving a Model and a Scaler
 The sklearn-export can also save more then one class in the same Json. This is usefull to store a Classifier and a Scaler (for example). To be honest, actually is only possible to store a pair Model and Scaler.
