@@ -17,7 +17,7 @@ def _load_meta(path):
     :return: Dictionary of key value pairs.
     """
     with open(path) as f:
-        meta = load(f, encoding='utf-8')
+        meta = load(f)
         meta = {k: v.decode('utf-8') if isinstance(v, bytes) else v
                 for k, v in meta.items()}
 
